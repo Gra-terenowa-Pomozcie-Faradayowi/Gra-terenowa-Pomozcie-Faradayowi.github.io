@@ -84,6 +84,33 @@
             z-index: 0;
         }
 
+        /* Przycisk wyciszenia w rogu */
+        .audio-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: rgba(0, 18, 35, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0,212,255,0.1);
+        }
+
+        .audio-control:hover {
+            background: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0,212,255,0.4);
+            transform: scale(1.05);
+        }
+
         /* Main card */
         .card {
             position: relative;
@@ -110,197 +137,47 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Cage corner decorations */
-        .corner {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border-color: var(--electric-blue);
-            border-style: solid;
-            opacity: 0.7;
-        }
+        /* Omitted for brevity: Cage corner decorations, Faraday info badge, Image, Headings, fact-box, stats, celebrate... (Poniżej użyto Twojego oryginalnego CSS) */
+        .corner { position: absolute; width: 24px; height: 24px; border-color: var(--electric-blue); border-style: solid; opacity: 0.7; }
         .corner-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
         .corner-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
         .corner-bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; }
         .corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
-
-        /* Faraday info badge */
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 100px;
-            padding: 5px 16px;
-            font-size: 0.7rem;
-            font-family: 'Orbitron', monospace;
-            letter-spacing: 0.12em;
-            color: var(--electric-blue);
-            margin-bottom: 22px;
-            text-transform: uppercase;
-            animation: badgeFade 1.2s ease 0.3s forwards;
-            opacity: 0;
-        }
-        .badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            background: var(--electric-blue);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--electric-blue);
-            animation: blink 1.5s ease-in-out infinite;
-        }
+        .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.3); border-radius: 100px; padding: 5px 16px; font-size: 0.7rem; font-family: 'Orbitron', monospace; letter-spacing: 0.12em; color: var(--electric-blue); margin-bottom: 22px; text-transform: uppercase; animation: badgeFade 1.2s ease 0.3s forwards; opacity: 0; }
+        .badge::before { content: ''; width: 6px; height: 6px; background: var(--electric-blue); border-radius: 50%; box-shadow: 0 0 8px var(--electric-blue); animation: blink 1.5s ease-in-out infinite; }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
         @keyframes badgeFade { to { opacity: 1; } }
-
-        /* Image */
-        .image-container {
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            position: relative;
-            animation: imgReveal 1s ease 0.5s forwards;
-            opacity: 0;
-        }
+        .image-container { border-radius: 16px; overflow: hidden; margin-bottom: 30px; border: 1px solid rgba(0, 212, 255, 0.2); position: relative; animation: imgReveal 1s ease 0.5s forwards; opacity: 0; }
         @keyframes imgReveal { to { opacity: 1; } }
-
-        .image-container::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 60%, rgba(2, 11, 24, 0.8) 100%);
-            pointer-events: none;
-        }
-
-        .image-container img {
-            width: 100%;
-            display: block;
-            transition: transform 0.5s ease;
-            filter: brightness(0.9) saturate(1.2);
-        }
+        .image-container::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(2, 11, 24, 0.8) 100%); pointer-events: none; }
+        .image-container img { width: 100%; display: block; transition: transform 0.5s ease; filter: brightness(0.9) saturate(1.2); }
         .image-container:hover img { transform: scale(1.03); }
-
-        /* Scan line overlay on image */
-        .image-container::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 3px,
-                rgba(0, 212, 255, 0.02) 3px,
-                rgba(0, 212, 255, 0.02) 4px
-            );
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        /* Headings */
-        h1 {
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 1.7rem;
-            line-height: 1.2;
-            margin-bottom: 16px;
-            color: #fff;
-            text-shadow: 0 0 20px var(--glow), 0 0 60px rgba(0,212,255,0.2);
-            animation: textReveal 1s ease 0.7s forwards;
-            opacity: 0;
-        }
+        .image-container::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient( 0deg, transparent, transparent 3px, rgba(0, 212, 255, 0.02) 3px, rgba(0, 212, 255, 0.02) 4px ); z-index: 1; pointer-events: none; }
+        h1 { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.7rem; line-height: 1.2; margin-bottom: 16px; color: #fff; text-shadow: 0 0 20px var(--glow), 0 0 60px rgba(0,212,255,0.2); animation: textReveal 1s ease 0.7s forwards; opacity: 0; }
         h1 span { color: var(--electric-blue); }
-
-        p.main-text {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: rgba(224, 247, 255, 0.85);
-            margin-bottom: 28px;
-            animation: textReveal 1s ease 0.9s forwards;
-            opacity: 0;
-        }
-
+        p.main-text { font-size: 1.05rem; line-height: 1.7; color: rgba(224, 247, 255, 0.85); margin-bottom: 28px; animation: textReveal 1s ease 0.9s forwards; opacity: 0; }
         @keyframes textReveal { to { opacity: 1; } }
-
-        /* Faraday fun fact */
-        .fact-box {
-            background: rgba(0, 212, 255, 0.05);
-            border-left: 3px solid var(--electric-blue);
-            border-radius: 0 12px 12px 0;
-            padding: 14px 18px;
-            text-align: left;
-            margin-bottom: 28px;
-            animation: textReveal 1s ease 1.1s forwards;
-            opacity: 0;
-        }
-        .fact-box .fact-label {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            color: var(--electric-blue);
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-        .fact-box p {
-            font-size: 0.88rem;
-            color: rgba(224, 247, 255, 0.75);
-            line-height: 1.6;
-        }
-
-        /* Stats row */
-        .stats {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 28px;
-            animation: textReveal 1s ease 1.2s forwards;
-            opacity: 0;
-        }
-        .stat {
-            flex: 1;
-            background: rgba(0, 212, 255, 0.06);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            border-radius: 12px;
-            padding: 12px 8px;
-        }
-        .stat-value {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--electric-blue);
-            text-shadow: 0 0 12px var(--glow);
-            display: block;
-        }
-        .stat-label {
-            font-size: 0.65rem;
-            color: rgba(224, 247, 255, 0.5);
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            margin-top: 3px;
-            display: block;
-        }
-
-        /* Bottom emojis / celebration */
-        .celebrate {
-            font-size: 2rem;
-            letter-spacing: 0.2em;
-            animation: textReveal 1s ease 1.4s forwards, celebratePulse 2s ease 1.4s infinite;
-            opacity: 0;
-            display: block;
-        }
-        @keyframes celebratePulse {
-            0%,100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* Electric bolt icon */
+        .fact-box { background: rgba(0, 212, 255, 0.05); border-left: 3px solid var(--electric-blue); border-radius: 0 12px 12px 0; padding: 14px 18px; text-align: left; margin-bottom: 28px; animation: textReveal 1s ease 1.1s forwards; opacity: 0; }
+        .fact-box .fact-label { font-family: 'Orbitron', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: var(--electric-blue); text-transform: uppercase; margin-bottom: 6px; }
+        .fact-box p { font-size: 0.88rem; color: rgba(224, 247, 255, 0.75); line-height: 1.6; }
+        .stats { display: flex; gap: 12px; margin-bottom: 28px; animation: textReveal 1s ease 1.2s forwards; opacity: 0; }
+        .stat { flex: 1; background: rgba(0, 212, 255, 0.06); border: 1px solid rgba(0, 212, 255, 0.15); border-radius: 12px; padding: 12px 8px; }
+        .stat-value { font-family: 'Orbitron', monospace; font-size: 1.3rem; font-weight: 700; color: var(--electric-blue); text-shadow: 0 0 12px var(--glow); display: block; }
+        .stat-label { font-size: 0.65rem; color: rgba(224, 247, 255, 0.5); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 3px; display: block; }
+        .celebrate { font-size: 2rem; letter-spacing: 0.2em; animation: textReveal 1s ease 1.4s forwards, celebratePulse 2s ease 1.4s infinite; opacity: 0; display: block; }
+        @keyframes celebratePulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
         .bolt { display: inline-block; animation: boltFlash 2s ease-in-out infinite; }
-        @keyframes boltFlash {
-            0%,90%,100% { opacity: 1; filter: drop-shadow(0 0 6px var(--electric-blue)); }
-            95% { opacity: 0.4; filter: drop-shadow(0 0 2px var(--electric-blue)); }
-        }
+        @keyframes boltFlash { 0%,90%,100% { opacity: 1; filter: drop-shadow(0 0 6px var(--electric-blue)); } 95% { opacity: 0.4; filter: drop-shadow(0 0 2px var(--electric-blue)); } }
     </style>
 </head>
 <body>
+
+    <audio id="bgMusic" loop>
+        <source src="TUTAJ_WKLEJ_LINK_DO_PLIKU_MP3.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="audio-control" id="audioBtn" title="Włącz/Wyłącz muzykę">🔇</div>
+
     <div class="ambient ambient-1"></div>
     <div class="ambient ambient-2"></div>
     <canvas id="lightning"></canvas>
@@ -348,7 +225,41 @@
     </div>
 
     <script>
-        // Lightning bolt canvas animation
+        // --- KONTROLA MUZYKI ---
+        const bgMusic = document.getElementById('bgMusic');
+        const audioBtn = document.getElementById('audioBtn');
+        let isPlaying = false;
+
+        // Ustawienie bardzo cichej głośności (15%)
+        bgMusic.volume = 0.15; 
+
+        function toggleAudio() {
+            if (isPlaying) {
+                bgMusic.pause();
+                audioBtn.innerHTML = '🔇';
+                isPlaying = false;
+            } else {
+                bgMusic.play().then(() => {
+                    audioBtn.innerHTML = '🔊';
+                    isPlaying = true;
+                }).catch(err => console.log("Przeglądarka zablokowała odtwarzanie"));
+            }
+        }
+
+        audioBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Zapobiega konfliktom z eventem poniżej
+            toggleAudio();
+        });
+
+        // Włącz muzykę automatycznie po PIERWSZYM kliknięciu gdziekolwiek na stronie (ominięcie blokad przeglądarek)
+        document.body.addEventListener('click', () => {
+            if (!isPlaying) {
+                toggleAudio();
+            }
+        }, { once: true });
+
+
+        // --- ANIMACJA PIORUNÓW (TWÓJ ORYGINALNY KOD) ---
         const canvas = document.getElementById('lightning');
         const ctx = canvas.getContext('2d');
 
